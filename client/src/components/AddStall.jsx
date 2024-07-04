@@ -24,7 +24,7 @@ const AddStall = () => {
                     </select>
                 </div>
                 <div className='col'>
-                <buttom className="btn btn-primary">Add</buttom>
+                <button className="btn btn-primary">Add</button>
                 </div>
             </div>
         </form>
