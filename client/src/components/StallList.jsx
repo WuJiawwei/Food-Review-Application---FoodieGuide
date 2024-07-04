@@ -1,6 +1,21 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
+import StallFinder from '../apis/StallFinder'
+import { StallsContext } from '../context/StallsContext';
 
-const StallList = () => {
+const StallList = (props) => {
+    const {stalls, setStalls} = useContext(StallsContext)
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await StallFinder.get("/");
+            console.log(response.data.data);
+            setStalls(response.data.data.stalls)
+          } catch (err) {}
+        };
+    
+        fetchData();
+      }, []);
+
   return (
     <div className='list-group'>
         <table className="table table-hover table-dark">

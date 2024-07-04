@@ -1,16 +1,19 @@
 require('dotenv').config()
 const express = require('express')
 const db = require("./db")
+const cors = require("cors")
 
 const morgan = require("morgan")
 const app = express()
 
+app.use(cors())
 app.use(express.json())
+
 // Get all stalls
 app.get("/api/v1/stalls", async (req, res) => {
     try {
         const results = await db.query("select * from stalls")
-        console.log(results)
+        
         res.status(200).json({
             status: "success",
             results: results.rows.length,
