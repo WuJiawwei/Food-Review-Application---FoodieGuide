@@ -6,15 +6,17 @@ import StallDetailPage from "./routes/StallDetailPage";
 
 
 const App = () => {
-  return <div>
-    <Router>
-      <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route exact path="/stalls/:id/update" element={<UpdatePage />} />
-        <Route exact path="/stalls/:id" element={<StallDetailPage />} />
-      </Routes>
-    </Router>
-  </div>
+  return (
+    <div className="container">
+      <Router>
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/stalls/:id/update" element={<UpdatePage />} />
+          <Route exact path="/stalls/:id" element={<StallDetailPage />} />
+        </Routes>
+      </Router>
+    </div>
+  )
 }
 
 export default App;
