@@ -1,8 +1,14 @@
 import React from 'react'
+import UpdateStall from '../components/UpdateStall'
 
 const UpdatePage = () => {
   return (
-    <div>UpdatePage</div>
+    <div>
+      <h1 className='text-center'>
+        Update Stall
+      </h1>
+      <UpdateStall />
+    </div>
   )
 }
 

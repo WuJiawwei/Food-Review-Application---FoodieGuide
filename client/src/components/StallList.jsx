@@ -1,9 +1,11 @@
 import React, { useContext, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 import StallFinder from '../apis/StallFinder'
 import { StallsContext } from '../context/StallsContext';
 
 const StallList = (props) => {
     const {stalls, setStalls} = useContext(StallsContext)
+    let navigate = useNavigate()
     useEffect(() => {
         const fetchData = async () => {
           try {
@@ -25,6 +27,10 @@ const handleDelete = async (id) => {
     } catch (err) {
         console.log(err)
     }
+}
+
+const handleUpdate = (id) => {
+    navigate(`/stalls/${id}/update`)
 }
 
   return (
@@ -49,7 +55,7 @@ const handleDelete = async (id) => {
                         <td>{"$".repeat(stall.price_range)}</td>
                         <td>reviews</td>
                         <td>
-                          <button className="btn btn-warning">Update</button>
+                          <button onClick={() => handleUpdate(stall.id)} className="btn btn-warning">Update</button>
                         </td>
                         <td>
                           <button onClick={() => handleDelete(stall.id)} className="btn btn-danger">Delete</button>
