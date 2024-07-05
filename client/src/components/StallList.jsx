@@ -30,7 +30,24 @@ const StallList = (props) => {
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                {stalls && stalls.map(stall => {
+                    return (
+                        <tr key={stall.id}>
+                        <td>{stall.name}</td>
+                        <td>{stall.location}</td>
+                        <td>{"$".repeat(stall.price_range)}</td>
+                        <td>reviews</td>
+                        <td>
+                          <button className="btn btn-warning">Update</button>
+                        </td>
+                        <td>
+                          <button className="btn btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                    )                   
+                })}
+                
+                {/* <tr>
                     <td>Salad</td>
                     <td>Utown</td>
                     <td>$$$$$</td>
@@ -46,7 +63,7 @@ const StallList = (props) => {
                     <td>Rating</td>
                     <td><button className="btn btn-warning">Update</button></td>
                     <td><button className="btn btn-danger">Delete</button></td>
-                </tr>
+                </tr> */}
             </tbody>
         </table>
     </div>
