@@ -16,6 +16,17 @@ const StallList = (props) => {
         fetchData();
       }, []);
 
+const handleDelete = async (id) => {
+    try {
+        const response = await StallFinder.delete(`/${id}`)
+        setStalls(stalls.filter(stall => {
+            return stall.id !== id
+        }))
+    } catch (err) {
+        console.log(err)
+    }
+}
+
   return (
     <div className='list-group'>
         <table className="table table-hover table-dark">
@@ -41,7 +52,7 @@ const StallList = (props) => {
                           <button className="btn btn-warning">Update</button>
                         </td>
                         <td>
-                          <button className="btn btn-danger">Delete</button>
+                          <button onClick={() => handleDelete(stall.id)} className="btn btn-danger">Delete</button>
                         </td>
                     </tr>
                     )                   
