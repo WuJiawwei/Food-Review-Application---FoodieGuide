@@ -18,7 +18,8 @@ const StallList = (props) => {
         fetchData();
       }, []);
 
-const handleDelete = async (id) => {
+const handleDelete = async (e, id) => {
+    e.stopPropagation()
     try {
         const response = await StallFinder.delete(`/${id}`)
         setStalls(stalls.filter(stall => {
@@ -29,8 +30,13 @@ const handleDelete = async (id) => {
     }
 }
 
-const handleUpdate = (id) => {
+const handleUpdate = (e, id) => {
+    e.stopPropagation()
     navigate(`/stalls/${id}/update`)
+}
+
+const handleStallSelect = (id) => {
+    navigate(`/stalls/${id}`)
 }
 
   return (
@@ -49,16 +55,16 @@ const handleUpdate = (id) => {
             <tbody>
                 {stalls && stalls.map(stall => {
                     return (
-                        <tr key={stall.id}>
+                        <tr onClick={() => handleStallSelect(stall.id)} key={stall.id}>
                         <td>{stall.name}</td>
                         <td>{stall.location}</td>
                         <td>{"$".repeat(stall.price_range)}</td>
                         <td>reviews</td>
                         <td>
-                          <button onClick={() => handleUpdate(stall.id)} className="btn btn-warning">Update</button>
+                          <button onClick={(e) => handleUpdate(e, stall.id)} className="btn btn-warning">Update</button>
                         </td>
                         <td>
-                          <button onClick={() => handleDelete(stall.id)} className="btn btn-danger">Delete</button>
+                          <button onClick={(e) => handleDelete(e, stall.id)} className="btn btn-danger">Delete</button>
                         </td>
                     </tr>
                     )                   
