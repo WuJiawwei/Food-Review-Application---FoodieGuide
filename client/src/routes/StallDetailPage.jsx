@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { StallsContext } from '../context/StallsContext'
 import StallFinder from '../apis/StallFinder'
+import StarRating from '../components/StarRating'
 
 const StallDetailPage = () => {
   const {id} = useParams()
@@ -18,7 +19,7 @@ const StallDetailPage = () => {
     fetchData()
   }, [])
   return (
-    <div>{selectedStall && selectedStall.name}</div>
+    <div>{selectedStall && selectedStall.name}<StarRating rating={3.3} /></div>
   )
 }
 
