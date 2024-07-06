@@ -4,6 +4,7 @@ import { StallsContext } from '../context/StallsContext'
 import StallFinder from '../apis/StallFinder'
 import StarRating from '../components/StarRating'
 import Reviews from '../components/Reviews'
+import AddReview from '../components/AddReview'
 
 const StallDetailPage = () => {
   const {id} = useParams()
@@ -25,6 +26,7 @@ const StallDetailPage = () => {
         <div className="mt-3">
           <Reviews />
         </div>
+        <AddReview />
       </>
     )}</div>
   )
