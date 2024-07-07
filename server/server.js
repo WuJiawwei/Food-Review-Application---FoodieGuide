@@ -106,6 +106,21 @@ app.delete("/api/v1/stalls/:id", async (req, res) => {
     
 })
 
+app.post("/api/v1/stalls/:id/addReview", async (req, res) => {
+    try {
+        const newReview = await db.query("INSERT INTO reviews (stall_id, name, review, rating) values ($1, $2, $3, $4) returning * ;", [
+            req.params.id, req.body.name, req.body.review, req.body.rating])
+            res.status(201).json({
+                status: 'success',
+                data: {
+                    review: newReview.rows[0]
+                }
+            })
+    } catch (err) {
+        console.log(err)
+    }
+})
+
 const port = process.env.PORT || 5000
 app.listen(port, () => {
     console.log(`Server is ready on port ${port}`)
