@@ -27,6 +27,14 @@ const StallDetailPage = () => {
       <h1 className='text-center display-1'>
         {selectedStall.stall.name}
       </h1>
+      <div className="text-center">
+        <StarRating rating={selectedStall.stall.average_rating} />
+        <span className="text-warning ml-1">
+            { selectedStall.stall.count 
+              ? `(${selectedStall.stall.count})` 
+              : (0) }
+        </span>
+      </div>
         <div className="mt-3">
           <Reviews reviews={selectedStall.reviews} />
         </div>

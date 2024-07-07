@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import StallFinder from '../apis/StallFinder'
 import { StallsContext } from '../context/StallsContext';
+import StarRating from './StarRating';
 
 const StallList = (props) => {
     const {stalls, setStalls} = useContext(StallsContext)
@@ -39,6 +40,18 @@ const handleStallSelect = (id) => {
     navigate(`/stalls/${id}`)
 }
 
+const renderRating = (stall) => {
+    if (!stall.count) {
+        return <span className="text-warning">0 reviews</span>
+    }
+    return (
+        <>
+            <StarRating rating={stall.average_rating} />
+            <span className="text-warning ml-1">({stall.count})</span>
+        </>
+    )
+}
+
   return (
     <div className='list-group'>
         <table className="table table-hover table-dark">
@@ -59,7 +72,7 @@ const handleStallSelect = (id) => {
                         <td>{stall.name}</td>
                         <td>{stall.location}</td>
                         <td>{"$".repeat(stall.price_range)}</td>
-                        <td>reviews</td>
+                        <td>{renderRating(stall)}</td>
                         <td>
                           <button onClick={(e) => handleUpdate(e, stall.id)} className="btn btn-warning">Update</button>
                         </td>

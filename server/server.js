@@ -12,13 +12,16 @@ app.use(express.json())
 // Get all stalls
 app.get("/api/v1/stalls", async (req, res) => {
     try {
-        const results = await db.query("select * from stalls")
+        // const results = await db.query("select * from stalls")
+        const stallRatingsData = await db.query (
+            "select * from stalls left join (select stall_id, COUNT(*), TRUNC(AVG(rating), 1) as average_rating from reviews group by stall_id) reviews on stalls.id = reviews.stall_id;"
+        )
         
         res.status(200).json({
             status: "success",
-            results: results.rows.length,
+            results: stallRatingsData.rows.length,
             data: {
-                stalls: results.rows,
+                stalls: stallRatingsData.rows,
             },
         })
     } catch (err) {
@@ -31,7 +34,7 @@ app.get("/api/v1/stalls/:id", async (req, res) => {
     console.log(req.params.id)
     try {
       const stall = await db.query(
-        "select * from stalls where id = $1", [
+        "select * from stalls left join (select stall_id, COUNT(*), TRUNC(AVG(rating), 1) as average_rating from reviews group by stall_id) reviews on stalls.id = reviews.stall_id where id = $1", [
         req.params.id
       ])
 
