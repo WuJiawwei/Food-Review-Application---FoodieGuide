@@ -30,11 +30,21 @@ app.get("/api/v1/stalls", async (req, res) => {
 app.get("/api/v1/stalls/:id", async (req, res) => {
     console.log(req.params.id)
     try {
-      const results = await db.query("select * from stalls where id = $1", [req.params.id])
+      const stall = await db.query(
+        "select * from stalls where id = $1", [
+        req.params.id
+      ])
+
+      const reviews = await db.query(
+        "select * from reviews where stall_id = $1", [
+        req.params.id
+      ])
+      
       res.status(200).json({
         status: "success",
         data: {
-            stall: results.rows[0],
+            stall: stall.rows[0],
+            reviews: reviews.rows
         }
     })
     } catch (err) {

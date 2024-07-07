@@ -13,7 +13,7 @@ const StallDetailPage = () => {
     const fetchData = async () => {
       try {
         const response = await StallFinder.get(`/${id}`)
-        setSelectedStall(response.data.data.stall)
+        setSelectedStall(response.data.data)
       } catch (err) {
         console.log(err)
       }
@@ -21,10 +21,14 @@ const StallDetailPage = () => {
     fetchData()
   }, [])
   return (
-    <div>{selectedStall && (
+    <div>
+      {selectedStall && (
       <>
+      <h1 className='text-center display-1'>
+        {selectedStall.stall.name}
+      </h1>
         <div className="mt-3">
-          <Reviews />
+          <Reviews reviews={selectedStall.reviews} />
         </div>
         <AddReview />
       </>
