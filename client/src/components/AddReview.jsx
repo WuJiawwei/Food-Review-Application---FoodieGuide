@@ -1,9 +1,27 @@
 import React, { useState } from 'react'
+import StallFinder from '../apis/StallFinder'
+import { useLocation, useParams } from 'react-router-dom'
 
 const AddReview = () => {
+    const { id } = useParams()
+    const location = useLocation()
     const [name, setName] = useState("")
     const [reviewText, setReviewText] = useState("")
     const [rating, setRating] = useState("Rating")
+
+    const handleSubmitReview = async (e) => {
+      e.preventDefault()
+      try {
+        const response = await StallFinder.post(`/${id}/addReview`, {
+          name, 
+          review: reviewText,
+          rating,
+        })
+        window.location.reload(); 
+      } catch (err) {
+        console.log(err)
+      }
+    }
 
   return (
     <div className='mb-2'>
@@ -46,7 +64,10 @@ const AddReview = () => {
                   className="form-control"
                 ></textarea>
             </div>
-            <button className="btn btn-primary">
+            <button 
+              type = "submit"
+              onClick={handleSubmitReview}
+              className="btn btn-primary">
                 Submit
             </button>
         </form>
